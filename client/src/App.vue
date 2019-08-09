@@ -35,6 +35,7 @@ export default {
     }
   },
   mounted: () => {
+    console.log(ALL_EVENTS_QUERY)
   },
   apollo: {
     allEvents: {
