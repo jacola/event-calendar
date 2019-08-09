@@ -2,7 +2,7 @@
   <div id="app">
     <div class="main">
       <div class="calendar-holder">
-        <calendar :events="events" />
+        <calendar :events="allEvents" />
       </div>
       <div class="form-holder">
         <h3>Schedule an event</h3>
@@ -15,6 +15,7 @@
 <script>
 import Calendar from './components/Calendar.vue'
 import EventForm from './components/EventForm.vue'
+import { ALL_EVENTS_QUERY } from './constants/graphql'
 
 export default {
   name: 'app',
@@ -29,18 +30,15 @@ export default {
   },
   data() {
     return {
-      events: [{
-        title: 'event1',
-        start: '2019-08-01',
-        end: '2019-08-02',
-        cssClass: 'blue',
-      },
-      {
-        title: 'event 2',
-        start: '2019-08-10',
-        end: '2019-08-12',
-        cssClass: 'orange',
-      }]
+      loading: 0,
+      allEvents: []
+    }
+  },
+  mounted: () => {
+  },
+  apollo: {
+    allEvents: {
+      query: ALL_EVENTS_QUERY
     }
   }
 }

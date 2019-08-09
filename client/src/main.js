@@ -9,7 +9,7 @@ import VueApollo from 'vue-apollo'
 Vue.config.productionTip = false
 
 const httpLink = new HttpLink({
-  uri: 'decktea.com/gql'
+  uri: 'http://decktea.com/gql/graphql/'
 })
 
 const apolloClient = new ApolloClient({
