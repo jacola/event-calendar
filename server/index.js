@@ -22,8 +22,9 @@ const typeDefs = gql`
 
   type Mutation {
     addEvent(title: String,  start: String,  end: String,  cssClass: String,  description: String) : Event
+    updateEvent(id: ID!, title: String,  start: String,  end: String,  cssClass: String,  description: String) : Event
+    deleteEvent(id: ID!) : Event
   }
-
 `;
 
 // A map of functions which return data for the schema.
@@ -36,6 +37,22 @@ const resolvers = {
     addEvent: async (_, args) => {
       try {
         let response = await Event.create(args);
+        return response;
+      } catch(e) {
+        e.message;
+      }
+    },
+    updateEvent: async (_, args) => {
+      try {
+        let response = await Event.findOneAndUpdate({ _id: args.id }, args, {new: true });
+        return response;
+      } catch(e) {
+        e.message;
+      }
+    },
+    deleteEvent: async (_, args) => {
+      try {
+        let response = await Event.findOneAndRemove({ _id: args.id });
         return response;
       } catch(e) {
         e.message;
