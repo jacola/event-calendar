@@ -21,7 +21,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addEvent(title: String,  start: String,  end: String,  cssClass: String,  description: String) : Event
+    createEvent(title: String,  start: String,  end: String,  cssClass: String,  description: String) : Event
     updateEvent(id: ID!, title: String,  start: String,  end: String,  cssClass: String,  description: String) : Event
     deleteEvent(id: ID!) : Event
   }
@@ -34,7 +34,7 @@ const resolvers = {
     event: async (_, args) => Event.findById(args.id).exec()
   },
   Mutation: {
-    addEvent: async (_, args) => {
+    createEvent: async (_, args) => {
       try {
         let response = await Event.create(args);
         return response;

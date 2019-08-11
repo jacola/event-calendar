@@ -25,6 +25,7 @@
 import DatePicker from 'vuejs-datepicker';
 import format from 'date-fns/format';
 import ColorPicker from './ColorPicker';
+import { CREATE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 export default {
   name: 'EventForm',
@@ -51,7 +52,28 @@ export default {
         end
       }
 
-      this.$emit('newEvent', event);
+      //this.$emit('newEvent', event);
+      
+      this.$apollo.mutate({
+        mutation: CREATE_EVENT_MUTATION,
+        variables: {
+          ...event
+        },
+        update: (store, { data: { createEvent } } ) => {
+          console.log('createEvent')
+          const data = store.readQuery({
+            query: ALL_EVENTS_QUERY
+          });
+          // REMOVE THIS
+          createEvent.data = {}
+          createEvent.data.description= '';
+          console.log(createEvent);
+          // ..
+          data.allEvents.push(createEvent);
+          store.writeQuery({ query: ALL_EVENTS_QUERY, data });
+        }
+      }); 
+
 
       this.resetValues();
     },
