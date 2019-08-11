@@ -5,4 +5,7 @@ const context = () => MongoClient.connect('mongodb://gql:Aa123456@localhost:2701
 const url = 'mongodb://gql:Aa123456@localhost:27017/eventdb';
 
 mongoose.connect(url, { useNewUrlParser: true });
-mongoose.connection.once('open', () => console.log(`🔗 Connected to mongo at ${url}`));
+mongoose.connection.once('open', () => {
+	console.log(`Connected to mongo at ${url}`)
+});
+
