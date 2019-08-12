@@ -52,8 +52,6 @@ export default {
         end
       }
 
-      //this.$emit('newEvent', event);
-      
       this.$apollo.mutate({
         mutation: CREATE_EVENT_MUTATION,
         variables: {
@@ -64,16 +62,12 @@ export default {
           const data = store.readQuery({
             query: ALL_EVENTS_QUERY
           });
-          // REMOVE THIS
-          createEvent.data = {}
-          createEvent.data.description= '';
-          console.log(createEvent);
-          // ..
           data.allEvents.push(createEvent);
           store.writeQuery({ query: ALL_EVENTS_QUERY, data });
         }
+      }).catch((error) => {
+        console.log(error);
       }); 
-
 
       this.resetValues();
     },

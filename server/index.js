@@ -12,6 +12,22 @@ const typeDefs = gql`
     start: String,
     end: String,
     cssClass: String,
+    data: EventData
+  }
+
+  input EventInput {
+    title: String,
+    start: String,
+    end: String,
+    cssClass: String,
+    data: EventDataInput
+  }
+
+  type EventData {
+    description: String
+  }
+
+  input EventDataInput {
     description: String
   }
 
@@ -21,9 +37,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createEvent(title: String,  start: String,  end: String,  cssClass: String,  description: String) : Event
-    updateEvent(id: ID!, title: String,  start: String,  end: String,  cssClass: String,  description: String) : Event
-    deleteEvent(id: ID!) : Event
+    createEvent(input: EventInput): Event
+    updateEvent(_id: ID!, input: EventInput) : Event
+    deleteEvent(_id: ID!) : Event
   }
 `;
 
@@ -34,25 +50,25 @@ const resolvers = {
     event: async (_, args) => Event.findById(args.id).exec()
   },
   Mutation: {
-    createEvent: async (_, args) => {
+    createEvent: async (_, { input }) => {
       try {
-        let response = await Event.create(args);
+        let response = await Event.create(input);
         return response;
       } catch(e) {
         e.message;
       }
     },
-    updateEvent: async (_, args) => {
+    updateEvent: async (_, {_id, input }) => {
       try {
-        let response = await Event.findOneAndUpdate({ _id: args.id }, args, {new: true });
+        let response = await Event.findOneAndUpdate({ _id }, input, {new: true });
         return response;
       } catch(e) {
         e.message;
       }
     },
-    deleteEvent: async (_, args) => {
+    deleteEvent: async (_, { _id }) => {
       try {
-        let response = await Event.findOneAndRemove({ _id: args.id });
+        let response = await Event.findOneAndRemove({ _id });
         return response;
       } catch(e) {
         e.message;

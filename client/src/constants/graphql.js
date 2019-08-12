@@ -8,26 +8,34 @@ query {
     start,
     end,
     cssClass,
-    description
+    data {
+      description
+    }
   }
 }
 `;
 
 export const CREATE_EVENT_MUTATION = gql`
-  mutation CreateEvent($title: String!,  $start: String!,  $end: String!,  $cssClass: String,  $description: String) {
+  mutation CreateEvent($title: String!,  $start: String!,  $end: String!,  $cssClass: String, $description: String) {
     createEvent(
-      title: $title,
-      start: $start,
-      end: $end,
-      cssClass: $cssClass,
-      description: $description,
+      input: {
+        title: $title,
+        start: $start,
+        end: $end,
+        cssClass: $cssClass,
+        data: {
+          description: $description
+        }
+      }
     ) {
       id
       title
       start
       end
       cssClass
-      description
+      data {
+        description
+      }
     }
   }
 `;
