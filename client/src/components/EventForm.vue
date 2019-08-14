@@ -46,10 +46,13 @@ export default {
     async handleSubmit() {
       const start = format(this.event.start, 'YYYY-MM-DD');
       const end = format(this.event.end, 'YYYY-MM-DD');
+      const description = this.event.data.description;
+
       const event = {
         ...this.event,
         start,
-        end
+        end,
+        description
       }
 
       this.$apollo.mutate({
@@ -58,10 +61,7 @@ export default {
           ...event
         },
         update: (store, { data: { createEvent } } ) => {
-          console.log('createEvent')
-          const data = store.readQuery({
-            query: ALL_EVENTS_QUERY
-          });
+          const data = store.readQuery({ query: ALL_EVENTS_QUERY });
           data.allEvents.push(createEvent);
           store.writeQuery({ query: ALL_EVENTS_QUERY, data });
         }

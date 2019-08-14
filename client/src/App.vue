@@ -2,7 +2,7 @@
   <div id="app">
     <div class="main">
       <div class="calendar-holder">
-        <calendar :events="allEvents" />
+        <calendar :events="allEvents"/>
       </div>
       <div class="form-holder">
         <h3>Schedule an event</h3>
@@ -35,7 +35,6 @@ export default {
     }
   },
   mounted: () => {
-    console.log(ALL_EVENTS_QUERY)
   },
   apollo: {
     allEvents: {
