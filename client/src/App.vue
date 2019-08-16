@@ -5,27 +5,6 @@
       :pop-page="goBack"
       ></v-ons-navigator>
   </div>
-  <!--v-ons-page>
-    <v-ons-toolbar>
-      <div class="center">Title</div>
-    </v-ons-toolbar>
-    <p style="text-align: center">
-      <v-ons-button @click="$ons.notification.alert('Hello World!')">
-        Click me!
-      </v-ons-button>
-    </p>
-  </v-ons-page-->
-  <!--div id="app">
-    <div class="main">
-      <div class="calendar-holder">
-        <calendar :events="allEvents"/>
-      </div>
-      <div class="form-holder">
-        <h3>Schedule an event</h3>
-        <event-form @newEvent="addEvent" />
-      </div>
-    </div>
-  </div-->
 </template>
 
 <script>

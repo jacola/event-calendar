@@ -2,11 +2,11 @@
   <v-ons-page>
     <v-ons-toolbar>
       <div class="left">
-        <v-ons-toolbar-button><router-link :to="{name: 'home'}">Cancel</router-link></v-ons-toolbar-button>
+        <v-ons-toolbar-button @click="$router.back()">Cancel</v-ons-toolbar-button>
       </div>
       <div class="center">New Event</div>
       <div class="right">
-        <v-ons-toolbar-button><router-link :to="{name: 'home'}">Add</router-link></v-ons-toolbar-button>
+        <v-ons-toolbar-button @click="handleSubmit">Add</v-ons-toolbar-button>
       </div>
     </v-ons-toolbar>
 
@@ -45,7 +45,7 @@
       <v-ons-list-item>
         <label class="left" for="start-input">Calendar</label>
         <div class="right">
-          <v-ons-input input-id="start-input" type="date" v-model="event.start"></v-ons-input>
+          <v-ons-input input-id="start-input" type="text" v-model="event.cssClass"></v-ons-input>
         </div>
       </v-ons-list-item>
     </v-ons-list>
@@ -58,9 +58,6 @@
       </v-ons-list-item>
     </v-ons-list>
 
-    <br>
-
-    <a href="#" @click="handleSubmit">create</a>
   </v-ons-page>
 </template>
 
@@ -79,7 +76,7 @@ export default {
         title: '',
         start: '',
         end: '',
-        cssClass: '',
+        cssClass: 'red',
         data: {
           description: ''
         }
