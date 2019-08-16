@@ -5,18 +5,137 @@
         <v-ons-toolbar-button><router-link :to="{name: 'home'}">Cancel</router-link></v-ons-toolbar-button>
       </div>
       <div class="center">New Event</div>
+      <div class="right">
+        <v-ons-toolbar-button><router-link :to="{name: 'home'}">Add</router-link></v-ons-toolbar-button>
+      </div>
     </v-ons-toolbar>
 
     <br>
-    <div class="links">
-      New
-    </div>
+
+    <v-ons-list>
+      <v-ons-list-item>
+        <v-ons-input input-id="event_title" placeholder="Title" v-model="event.title"></v-ons-input>
+      </v-ons-list-item>
+    </v-ons-list>
+
+    <br>
+
+    <v-ons-list>
+      <v-ons-list-item>
+        <div class="center">
+          <label class="center" for="event_start">Starts</label>
+        </div>
+        <div class="right">
+          <v-ons-input input-id="event_start" type="text" v-model="event.start" placeholder="YYYY-MM-DD"></v-ons-input>
+        </div>
+      </v-ons-list-item>
+      <v-ons-list-item>
+        <div class="center">
+          <label class="center" for="event_start">Ends</label>
+        </div>
+        <div class="right">
+          <v-ons-input input-id="event_start" type="text" v-model="event.end" placeholder="YYYY-MM-DD"></v-ons-input>
+        </div>
+      </v-ons-list-item>
+    </v-ons-list>
+
+    <br>
+
+    <v-ons-list>
+      <v-ons-list-item>
+        <label class="left" for="start-input">Calendar</label>
+        <div class="right">
+          <v-ons-input input-id="start-input" type="date" v-model="event.start"></v-ons-input>
+        </div>
+      </v-ons-list-item>
+    </v-ons-list>
+
+    <br>
+
+    <v-ons-list>
+      <v-ons-list-item>
+        <textarea class="textarea textarea--transparent" rows="5" placeholder="Notes" v-model="event.data.description"></textarea>
+      </v-ons-list-item>
+    </v-ons-list>
+
+    <br>
+
+    <a href="#" @click="handleSubmit">create</a>
   </v-ons-page>
 </template>
 
 <script>
+import format from 'date-fns/format';
+import { CREATE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
+
+//import DatePicker from 'vuejs-datepicker';
+//import ColorPicker from './ColorPicker';
+
 export default {
-  name: 'TemplatePage'
+  name: 'NewEvent',
+  data() {
+    return {
+      event: {
+        title: '',
+        start: '',
+        end: '',
+        cssClass: '',
+        data: {
+          description: ''
+        }
+      }
+    }
+  },
+  components: {
+  },
+  methods: {
+    async handleSubmit() {
+      const start = format(this.event.start, 'YYYY-MM-DD');
+      const end = format(this.event.end, 'YYYY-MM-DD');
+      const description = this.event.data.description;
+
+      const event = {
+        ...this.event,
+        start,
+        end,
+        description
+      }
+
+      this.$apollo.mutate({
+        mutation: CREATE_EVENT_MUTATION,
+        variables: {
+          ...event
+        },
+        update: (store, { data: { createEvent } } ) => {
+          const data = store.readQuery({ query: ALL_EVENTS_QUERY });
+          data.allEvents.push(createEvent);
+          store.writeQuery({ query: ALL_EVENTS_QUERY, data });
+        }
+      }).catch((error) => {
+        this.$ons.notification.alert(error);
+      }); 
+
+      this.resetValues();
+      this.$router.push('/');
+    },
+    selectColor(color) {
+      this.event = {
+        ...this.event,
+        cssClass: color
+      }
+    },
+    resetValues() {
+      this.event = {
+        title: '',
+        start: '',
+        end: '',
+        cssClass: '',
+        data: {
+          description: ''
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -26,5 +145,9 @@ export default {
 }
 .links li {
   margin: 10px 0;
+}
+
+.right-text {
+  text-align: right !important;
 }
 </style>
