@@ -19,9 +19,12 @@
     "express": "^4.17.1",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
+    "onsenui": "^2.10.10",
     "vue": "^2.6.10",
     "vue-apollo": "^3.0.0-rc.2",
     "vue-fullcalendar": "^1.0.9",
+    "vue-onsenui": "^2.6.2",
+    "vue-router": "^3.1.2",
     "vuejs-datepicker": "^1.6.2"
   },
   "devDependencies": {

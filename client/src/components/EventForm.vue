@@ -66,7 +66,7 @@ export default {
           store.writeQuery({ query: ALL_EVENTS_QUERY, data });
         }
       }).catch((error) => {
-        console.log(error);
+        $ons.notification.alert(error);
       }); 
 
       this.resetValues();

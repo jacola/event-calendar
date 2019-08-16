@@ -24,7 +24,7 @@ export const CREATE_EVENT_MUTATION = gql`
         end: $end,
         cssClass: $cssClass,
         data: {
-          description: $description     
+          description: $description
         }
      }
    ) {

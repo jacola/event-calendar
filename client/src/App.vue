@@ -1,5 +1,21 @@
 <template>
   <div id="app">
+    <v-ons-navigator swipeable swipe-target-width="200px"
+      :page-stack="pageStack"
+      :pop-page="goBack"
+      ></v-ons-navigator>
+  </div>
+  <!--v-ons-page>
+    <v-ons-toolbar>
+      <div class="center">Title</div>
+    </v-ons-toolbar>
+    <p style="text-align: center">
+      <v-ons-button @click="$ons.notification.alert('Hello World!')">
+        Click me!
+      </v-ons-button>
+    </p>
+  </v-ons-page-->
+  <!--div id="app">
     <div class="main">
       <div class="calendar-holder">
         <calendar :events="allEvents"/>
@@ -9,38 +25,41 @@
         <event-form @newEvent="addEvent" />
       </div>
     </div>
-  </div>
+  </div-->
 </template>
 
 <script>
-import Calendar from './components/Calendar.vue'
-import EventForm from './components/EventForm.vue'
-import { ALL_EVENTS_QUERY } from './constants/graphql'
 
 export default {
   name: 'app',
-  components: {
-    Calendar,
-    EventForm
-  },
   methods: {
+    goBack() {
+      this.$router.push({ name: this.$route.matched[this.$route.matched.length - 2].name });
+    },
     addEvent(data) {
       this.events.push(data);
     }
   },
+  created() {
+    /* Define how routes should be mapped to the page stack.
+    * This assumes all the routes contain VOnsPage components
+    * and are provided in the 'default' view.
+    * For nested named routes or routes that for some reason
+    * should not be mapped in VOnsNavigator, filter them out here.
+    */
+      const mapRouteStack = route => this.pageStack = route.matched.map(m => m.components.default);
+    /* Set initial pageStack depending on current
+    * route instead of always pushing 'Home' page
+    */
+    mapRouteStack(this.$route);
+    /* On route change, reset the pageStack to the next route */
+    this.$router.beforeEach((to, from, next) => mapRouteStack(to) && next());
+  },
   data() {
     return {
-      loading: 0,
-      allEvents: []
+      pageStack: []
     }
   },
-  mounted: () => {
-  },
-  apollo: {
-    allEvents: {
-      query: ALL_EVENTS_QUERY
-    }
-  }
 }
 </script>
 
