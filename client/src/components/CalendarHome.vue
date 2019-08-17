@@ -9,15 +9,8 @@
 
     <br>
     <div class="links">
-      <full-calendar :events="allEvents"/>
+      <full-calendar :events="allEvents" @eventClick="eventSelect" />
     </div>
-    <ul>
-      <li>
-        <router-link :to="{name: 'details'}">
-          details
-        </router-link>
-      </li>
-    </ul>
   </v-ons-page>
 </template>
 
@@ -38,6 +31,11 @@ export default {
     newEvent() {
       this.$ons.notification.alert('New Event');
     },
+    eventSelect(event) { //, jsEvent, pos) {
+      //console.log('eventClick', event, jsEvent, pos)
+      this.$ons.notification.alert('id: ' + event.id);
+      //router.push({ name: 'eventdetails', params: { id: '123' } })
+    }
   },
   beforeUpdate() {
   },
