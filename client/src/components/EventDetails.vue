@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { DELETE_EVENT_MUTATION } from '../constants/graphql';
+import { DELETE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 export default {
   name: 'EventDetails',
@@ -33,11 +33,18 @@ export default {
   methods: {
     deleteEvent() {
       const id = this.$route.params.id;
-      console.log(id);
+
       this.$apollo.mutate({
         mutation: DELETE_EVENT_MUTATION,
         variables: {
           id
+        },
+        update: (store, {data: { deleteEvent } } ) => {
+          const data = store.readQuery({ query: ALL_EVENTS_QUERY });
+          data.allEvents = data.allEvents.filter(e => {
+            return e.id !== deleteEvent.id;
+          });
+          store.writeQuery({ query: ALL_EVENTS_QUERY, data });
         }
       }).catch((error) => {
         this.$ons.notification.alert(error);

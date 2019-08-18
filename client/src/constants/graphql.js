@@ -43,6 +43,7 @@ export const CREATE_EVENT_MUTATION = gql`
 export const DELETE_EVENT_MUTATION = gql`
   mutation DeleteEvent($id: ID!) {
     deleteEvent(id: $id) {
+      id
       title
     }
   }
