@@ -3,7 +3,7 @@
     <v-ons-toolbar>
       <div class="center">Event Calendar</div>
       <div class="right">
-        <v-ons-toolbar-button><router-link :to="{name: 'new'}">+</router-link></v-ons-toolbar-button>
+        <v-ons-toolbar-button @click="$router.push({ name: 'newevent' })"><ons-icon icon="md-plus" size="25px"></ons-icon></v-ons-toolbar-button>
       </div>
     </v-ons-toolbar>
 

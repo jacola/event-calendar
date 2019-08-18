@@ -28,7 +28,7 @@ export default new Router({
     {
       path: '/new',
       component: NewEvent,
-      name: 'new'
+      name: 'newevent'
     }
   ]
 });
