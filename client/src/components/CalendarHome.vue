@@ -32,9 +32,7 @@ export default {
       this.$ons.notification.alert('New Event');
     },
     eventSelect(event) { //, jsEvent, pos) {
-      //console.log('eventClick', event, jsEvent, pos)
-      this.$ons.notification.alert('id: ' + event.id);
-      //router.push({ name: 'eventdetails', params: { id: '123' } })
+      this.$router.push({ name: 'eventdetails', params: { id: event.id } })
     }
   },
   beforeUpdate() {

@@ -38,8 +38,8 @@ const typeDefs = gql`
 
   type Mutation {
     createEvent(input: EventInput): Event
-    updateEvent(_id: ID!, input: EventInput) : Event
-    deleteEvent(_id: ID!) : Event
+    updateEvent(id: ID!, input: EventInput) : Event
+    deleteEvent(id: ID!) : Event
   }
 `;
 
@@ -58,17 +58,17 @@ const resolvers = {
         e.message;
       }
     },
-    updateEvent: async (_, {_id, input }) => {
+    updateEvent: async (_, {id, input }) => {
       try {
-        let response = await Event.findOneAndUpdate({ _id }, input, {new: true });
+        let response = await Event.findOneAndUpdate({ id }, input, {new: true });
         return response;
       } catch(e) {
         e.message;
       }
     },
-    deleteEvent: async (_, { _id }) => {
+    deleteEvent: async (_, { id }) => {
       try {
-        let response = await Event.findOneAndRemove({ _id });
+        let response = await Event.findOneAndRemove({ _id: id });
         return response;
       } catch(e) {
         e.message;

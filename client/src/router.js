@@ -18,9 +18,10 @@ export default new Router({
       name: 'home',
       children: [
         {
-          path: '/details',
-          name: 'details',
-          component: EventDetails
+          path: '/eventdetails',
+          name: 'eventdetails',
+          component: EventDetails,
+          props: { id: -7 }
         }
       ]
     },
