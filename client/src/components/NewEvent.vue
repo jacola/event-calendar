@@ -15,7 +15,9 @@
 
     <v-ons-list>
       <v-ons-list-item>
-        <v-ons-input input-id="event_title" placeholder="Title" v-model="event.title"></v-ons-input>
+        <div class="center">
+          <v-ons-input style="width:100%" input-id="event_title" placeholder="Title" v-model="event.title"></v-ons-input>
+        </div>
       </v-ons-list-item>
     </v-ons-list>
 
