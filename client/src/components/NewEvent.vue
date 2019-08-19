@@ -2,11 +2,12 @@
   <v-ons-page>
     <v-ons-toolbar>
       <div class="left">
-        <v-ons-toolbar-button @click="$router.back()">Cancel</v-ons-toolbar-button>
+        <v-ons-toolbar-button @click="$router.go(-1)">Cancel</v-ons-toolbar-button>
       </div>
       <div class="center">New Event</div>
       <div class="right">
-        <v-ons-toolbar-button @click="handleSubmit">Add</v-ons-toolbar-button>
+        <v-ons-toolbar-button v-if="event.title===''" disabled>Add</v-ons-toolbar-button>
+        <v-ons-toolbar-button v-else @click="handleSubmit" >Add</v-ons-toolbar-button>
       </div>
     </v-ons-toolbar>
 
@@ -84,7 +85,6 @@ export default {
       }
     }
   },
-  components: { },
   methods: {
     async handleSubmit() {
       let start = format(this.event.start, 'YYYY-MM-DD');
@@ -114,7 +114,7 @@ export default {
         }
       }).catch((error) => {
         this.$ons.notification.alert(error);
-      }); 
+      });
 
       this.resetValues();
       this.$router.push('/');
