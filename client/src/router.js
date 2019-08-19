@@ -21,7 +21,6 @@ export default new Router({
           path: '/details/:id',
           name: 'eventdetails',
           component: EventDetails,
-          props: { id: -7 }
         },
         {
           path: '/new/',
