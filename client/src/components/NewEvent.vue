@@ -63,6 +63,7 @@
 
 <script>
 import format from 'date-fns/format';
+import isDate from 'date-fns/is_date';
 import { CREATE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 //import DatePicker from 'vuejs-datepicker';
@@ -83,12 +84,15 @@ export default {
       }
     }
   },
-  components: {
-  },
+  components: { },
   methods: {
     async handleSubmit() {
-      const start = format(this.event.start, 'YYYY-MM-DD');
-      const end = format(this.event.end, 'YYYY-MM-DD');
+      let start = format(this.event.start, 'YYYY-MM-DD');
+      let end   = format(this.event.end, 'YYYY-MM-DD');
+
+      if (!isDate(start)) start = format(new Date(), 'YYYY-MM-DD');
+      if (!isDate(end))   end = start;
+
       const description = this.event.data.description;
 
       const event = {
