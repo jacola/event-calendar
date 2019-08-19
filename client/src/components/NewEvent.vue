@@ -90,9 +90,9 @@ export default {
       let start = format(this.event.start, 'YYYY-MM-DD');
       let end   = format(this.event.end, 'YYYY-MM-DD');
 
-      if (!isDate(start)) start = format(new Date(), 'YYYY-MM-DD');
-      if (!isDate(end))   end = start;
-
+      //if (!isDate(start)) start = format(new Date(), 'YYYY-MM-DD');
+      //if (!isDate(end))   end = start;
+      
       const description = this.event.data.description;
 
       const event = {

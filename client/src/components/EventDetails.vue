@@ -11,17 +11,15 @@
     </v-ons-toolbar>
 
     <br>
+
     <div class="links">
     id: {{ $route.params.id }}
     </div>
 
-    <v-ons-action-sheet
-      :visible.sync="confirmDelete"
-      cancelable >
+    <v-ons-action-sheet :visible.sync="confirmDelete" cancelable>
       <v-ons-action-sheet-button modifier="destructive" @click="deleteEvent">Delete</v-ons-action-sheet-button>
       <v-ons-action-sheet-button @click="confirmDelete=false">Cancel</v-ons-action-sheet-button>
     </v-ons-action-sheet>
-
 
     <v-ons-bottom-toolbar>
       <v-ons-button modifier="quiet" @click="confirmDelete=true">Delete Event</v-ons-button>
@@ -34,7 +32,6 @@ import { DELETE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 export default {
   name: 'EventDetails',
-  //props: ['id']
   data() {
     return {
       confirmDelete: false
@@ -46,9 +43,7 @@ export default {
 
       this.$apollo.mutate({
         mutation: DELETE_EVENT_MUTATION,
-        variables: {
-          id
-        },
+        variables: { id },
         update: (store, {data: { deleteEvent } } ) => {
           const data = store.readQuery({ query: ALL_EVENTS_QUERY });
           data.allEvents = data.allEvents.filter(e => {
