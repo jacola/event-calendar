@@ -33,7 +33,7 @@
         </div>
       </v-ons-list-item>
       <v-ons-list-item>
-        <div class="center">
+        <div class="right">
           <label class="center" for="event_start">Ends</label>
         </div>
         <div class="right">
@@ -47,7 +47,7 @@
     <v-ons-list>
       <v-ons-list-item>
         <label class="left" for="start-input">Calendar</label>
-        <div class="right">
+        <div class="center">
           <v-ons-input input-id="start-input" type="text" v-model="event.cssClass"></v-ons-input>
         </div>
       </v-ons-list-item>
@@ -57,7 +57,7 @@
 
     <v-ons-list>
       <v-ons-list-item>
-        <textarea class="textarea textarea--transparent" rows="5" placeholder="Notes" v-model="event.data.description"></textarea>
+        <textarea style="width:100%" class="textarea textarea--transparent" rows="5" placeholder="Notes" v-model="event.data.description"></textarea>
       </v-ons-list-item>
     </v-ons-list>
 
