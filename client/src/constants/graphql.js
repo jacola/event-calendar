@@ -15,6 +15,21 @@ query {
 }
 `;
 
+export const EVENT_QUERY = gql`
+query event ($id: ID!) {
+  event(id: $id) {
+    id,
+    title,
+    start,
+    end,
+    cssClass,
+    data {
+      description
+    }
+  }
+}
+`;
+
 export const CREATE_EVENT_MUTATION = gql`
   mutation CreateEvent($title: String!,  $start: String!,  $end: String!,  $cssClass: String, $description: String) {
     createEvent(

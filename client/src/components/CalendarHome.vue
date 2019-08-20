@@ -7,10 +7,16 @@
       </div>
     </v-ons-toolbar>
 
-    <br>
-    <div class="links">
-      <full-calendar :events="allEvents" @eventClick="eventSelect" />
-    </div>
+    <span v-if="loading">
+      <v-ons-progress-bar indeterminate></v-ons-progress-bar>
+    </span>
+
+    <span v-else>
+      <br>
+      <div class="links">
+        <full-calendar :events="allEvents" @eventClick="eventSelect" />
+      </div>
+    </span>
   </v-ons-page>
 </template>
 

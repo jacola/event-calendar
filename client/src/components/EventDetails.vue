@@ -10,11 +10,43 @@
       </div>
     </v-ons-toolbar>
 
-    <br>
+    <span v-if="loading">
+      <v-ons-progress-bar indeterminate></v-ons-progress-bar>
+    </span>
+    <span v-else>
+      <v-ons-list>
+        <v-ons-list-item modifier="nodivider">
+          <div class="center">
+            <b>{{ event.title }}</b>
+          </div>
+        </v-ons-list-item>
+        <v-ons-list-item>
+          <div class="center">
+            <span class="list-item__subtitle"> {{ event.start }} to {{ event.end }} </span>
+          </div>
+        </v-ons-list-item>
+      </v-ons-list>
 
-    <div class="links">
-    id: {{ $route.params.id }}
-    </div>
+      <br>
+
+      <v-ons-list>
+        <v-ons-list-item>
+          <label class="left" for="start-input">Calendar</label>
+          <div class="right">
+            <v-ons-input disabled input-id="start-input" type="text" v-model="event.cssClass"></v-ons-input>
+          </div>
+        </v-ons-list-item>
+      </v-ons-list>
+
+      <br>
+
+      <v-ons-list>
+        <v-ons-list-header> Description </v-ons-list-header>
+        <v-ons-list-item>
+          {{ event.data.description }}
+        </v-ons-list-item>
+      </v-ons-list>
+    </span>
 
     <v-ons-action-sheet :visible.sync="confirmDelete" cancelable>
       <v-ons-action-sheet-button modifier="destructive" @click="deleteEvent">Delete</v-ons-action-sheet-button>
@@ -28,13 +60,22 @@
 </template>
 
 <script>
-import { DELETE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
+import { EVENT_QUERY, DELETE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 export default {
   name: 'EventDetails',
   data() {
     return {
-      confirmDelete: false
+      confirmDelete: false,
+      event: {
+        id: this.$route.params.id,
+        title: '',
+        start: '',
+        end: '',
+        cssClass: '',
+        data: {}
+      },
+      loading: 0
     }
   },
   methods: {
@@ -58,8 +99,16 @@ export default {
       this.$router.back();
     }
   },
-  mounted() {
-    //console.log(this.$route);
+  apollo: {
+    event: {
+      query: EVENT_QUERY,
+      loadingKey: 'loading',
+      variables() {
+        return {
+          id: this.event.id
+        }
+      }
+    }
   }
 }
 </script>
