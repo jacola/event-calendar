@@ -13,6 +13,7 @@
     <span v-if="loading">
       <v-ons-progress-bar indeterminate></v-ons-progress-bar>
     </span>
+
     <span v-else>
       <v-ons-list>
         <v-ons-list-item modifier="nodivider">

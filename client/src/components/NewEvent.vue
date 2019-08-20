@@ -66,10 +66,9 @@
 
 <script>
 import format from 'date-fns/format';
-import isDate from 'date-fns/is_date';
+import isValid from 'date-fns/is_valid';
 import { CREATE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
-//import DatePicker from 'vuejs-datepicker';
 //import ColorPicker from './ColorPicker';
 
 export default {
@@ -78,8 +77,8 @@ export default {
     return {
       event: {
         title: '',
-        start: '',
-        end: '',
+        start: format(new Date(), 'YYYY-MM-DD'),
+        end: format(new Date(), 'YYYY-MM-DD'),
         cssClass: 'red',
         data: {
           description: ''
@@ -92,8 +91,8 @@ export default {
       let start = format(this.event.start, 'YYYY-MM-DD');
       let end   = format(this.event.end, 'YYYY-MM-DD');
 
-      //if (!isDate(start)) start = format(new Date(), 'YYYY-MM-DD');
-      //if (!isDate(end))   end = start;
+      if (!isValid(new Date(start))) start = format(new Date(), 'YYYY-MM-DD');
+      if (!isValid(new Date(end)) || new Date(start) > new Date(end))   end = start;
       
       const description = this.event.data.description;
 
