@@ -16,13 +16,13 @@ Vue.config.productionTip = false
 
 const httpLink = new HttpLink({
   uri: 'http://decktea.com/gql/'
-})
+});
 
 const apolloClient = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
   connectToDevTools: true
-})
+});
 
 Vue.use(VueApollo);
 Vue.use(VueOnsen);
@@ -32,7 +32,7 @@ const apolloProvider = new VueApollo({
   defaultOptions: {
     $loadingKey: 'loading'
   }
-})
+});
 
 new Vue({
   el: '#app',
@@ -41,7 +41,6 @@ new Vue({
     return {
     }
   },
-  //provide: apolloProvider.provide(),
   apolloProvider,
   render: h => h(App),
-}) //.$mount('#app')
+});
