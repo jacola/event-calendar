@@ -1,6 +1,7 @@
 module.exports = {
     configureWebpack: {
         //
+        mode: "development"
     },
     // dev server
     devServer: {
