@@ -1,7 +1,13 @@
+var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+
 module.exports = {
     configureWebpack: {
         //
-        mode: "development"
+        mode: "development",
+        devtool: false,
+        plugins: [
+          new HardSourceWebpackPlugin()
+        ]
     },
     // dev server
     devServer: {
