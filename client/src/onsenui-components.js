@@ -1,6 +1,7 @@
 export { default as VOnsNavigator } from 'vue-onsenui/esm/components/VOnsNavigator';
 
 export { default as VOnsPage } from 'vue-onsenui/esm/components/VOnsPage';
+export { default as VOnsDialog } from 'vue-onsenui/esm/components/VOnsDialog';
 
 export { default as VOnsToolbar } from 'vue-onsenui/esm/components/VOnsToolbar';
 export { default as VOnsToolbarButton } from 'vue-onsenui/esm/components/VOnsToolbarButton';
@@ -11,6 +12,7 @@ export { default as VOnsIcon } from 'vue-onsenui/esm/components/VOnsIcon';
 export { default as VOnsProgressBar } from 'vue-onsenui/esm/components/VOnsProgressBar';
 
 export { default as VOnsInput } from 'vue-onsenui/esm/components/VOnsInput';
+export { default as VOnsRadio } from 'vue-onsenui/esm/components/VOnsRadio';
 
 export { default as VOnsList } from 'vue-onsenui/esm/components/VOnsList';
 export { default as VOnsListHeader } from 'vue-onsenui/esm/components/VOnsListHeader';

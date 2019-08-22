@@ -34,21 +34,56 @@
       </v-ons-list-item>
       <v-ons-list-item>
         <div class="right">
-          <label class="center" for="event_start">Ends</label>
+          <label class="center" for="event_end">Ends</label>
         </div>
         <div class="right">
-          <v-ons-input input-id="event_start" type="text" v-model="event.end" placeholder="YYYY-MM-DD"></v-ons-input>
+          <v-ons-input input-id="event_end" type="text" v-model="event.end" placeholder="YYYY-MM-DD"></v-ons-input>
         </div>
       </v-ons-list-item>
     </v-ons-list>
 
     <br>
 
+    <v-ons-dialog class="color-picker" :visible.sync="showColorPicker">
+      <v-ons-page>
+        <v-ons-toolbar>
+          <div class="center">Select Color</div>
+        </v-ons-toolbar>
+
+        <p style="text-align: center">
+          <v-ons-button modifier="quiet" @click="event.cssClass=''; showColorPicker=false;">
+            <v-ons-icon icon="md-circle-o" style="color: rgb(200, 200, 200)" size="40px"></v-ons-icon>
+          </v-ons-button>
+          <v-ons-button modifier="quiet" @click="event.cssClass='red'; showColorPicker=false;">
+            <span v-if="event.cssClass==='red'"><v-ons-icon style="color: rgb(235, 77, 77)" icon="md-check-circle" size="40px"></v-ons-icon></span>
+            <span v-else><v-ons-icon style="color: rgb(235, 77, 77)" icon="md-circle" size="40px"></v-ons-icon></span>
+          </v-ons-button>
+          <v-ons-button modifier="quiet" @click="event.cssClass='blue'; showColorPicker=false;">
+            <span v-if="event.cssClass==='blue'"><v-ons-icon style="color: rgb(59, 59, 163)" icon="md-check-circle" size="40px"></v-ons-icon></span>
+            <span v-else><v-ons-icon style="color: rgb(59, 59, 163)" icon="md-circle" size="40px"></v-ons-icon></span>
+          </v-ons-button>
+          <v-ons-button modifier="quiet" @click="event.cssClass='orange'; showColorPicker=false;">
+            <span v-if="event.cssClass==='orange'"><v-ons-icon style="color: orange" icon="md-check-circle" size="40px"></v-ons-icon></span>
+            <span v-else><v-ons-icon style="color: orange" icon="md-circle" size="40px"></v-ons-icon></span>
+          </v-ons-button>
+          <v-ons-button modifier="quiet" @click="event.cssClass='green'; showColorPicker=false;">
+            <span v-if="event.cssClass==='green'"><v-ons-icon style="color: rgb(49, 155, 49)" icon="md-check-circle" size="40px"></v-ons-icon></span>
+            <span v-else><v-ons-icon style="color: rgb(49, 155, 49)" icon="md-circle" size="40px"></v-ons-icon></span>
+          </v-ons-button>
+        </p>
+      </v-ons-page>
+    </v-ons-dialog>
+
     <v-ons-list>
-      <v-ons-list-item>
-        <label class="left" for="start-input">Calendar</label>
-        <div class="center">
-          <v-ons-input input-id="start-input" type="text" v-model="event.cssClass"></v-ons-input>
+      <v-ons-list-item tappable @click="showColorPicker=true">
+        <label class="left">Calendar</label>
+        <div class="right">
+          <span v-if="event.cssClass==='red'"><v-ons-icon style="color: rgb(235, 77, 77)" icon="md-circle" size="20px"></v-ons-icon></span>
+          <span v-else-if="event.cssClass==='blue'"><v-ons-icon style="color: rgb(59, 59, 163)" icon="md-circle" size="20px"></v-ons-icon></span>
+          <span v-else-if="event.cssClass==='orange'"><v-ons-icon style="color: orange" icon="md-circle" size="20px"></v-ons-icon></span>
+          <span v-else-if="event.cssClass==='green'"><v-ons-icon style="color: rgb(49, 155, 49)" icon="md-circle" size="20px"></v-ons-icon></span>
+          <span v-else><v-ons-icon icon="md-circle-o" style="color: rgb(200, 200, 200)" size="20px"></v-ons-icon></span>
+          &nbsp;{{ event.cssClass === '' ? 'none' : event.cssClass }}
         </div>
       </v-ons-list-item>
     </v-ons-list>
@@ -75,6 +110,7 @@ export default {
   name: 'NewEvent',
   data() {
     return {
+      showColorPicker: false,
       event: {
         title: '',
         start: format(new Date(), 'YYYY-MM-DD'),
@@ -93,7 +129,7 @@ export default {
 
       if (!isValid(new Date(start))) start = format(new Date(), 'YYYY-MM-DD');
       if (!isValid(new Date(end)) || new Date(start) > new Date(end))   end = start;
-      
+
       const description = this.event.data.description;
 
       const event = {
@@ -142,14 +178,7 @@ export default {
 </script>
 
 <style>
-.links {
-  margin: 20px;
-}
-.links li {
-  margin: 10px 0;
-}
-
-.right-text {
-  text-align: right !important;
+.color-picker .dialog-container {
+  height: 120px;
 }
 </style>
