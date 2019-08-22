@@ -2,11 +2,11 @@
   <v-ons-page>
     <v-ons-toolbar>
       <div class="left">
-        <v-ons-back-button>Back</v-ons-back-button>
+        <v-ons-back-button>Cancel</v-ons-back-button>
       </div>
-      <div class="center">Event Details</div>
+      <div class="center">Edit Event</div>
       <div class="right">
-        <v-ons-toolbar-button @click="editEvent">Edit</v-ons-toolbar-button>
+        <v-ons-toolbar-button>Done</v-ons-toolbar-button>
       </div>
     </v-ons-toolbar>
 
@@ -64,26 +64,17 @@
 import { EVENT_QUERY, DELETE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 export default {
-  name: 'EventDetails',
+  name: 'EditEvent',
   data() {
     return {
       confirmDelete: false,
       event: {
-        id: this.$route.params.id,
-        title: '',
-        start: '',
-        end: '',
-        cssClass: '',
         data: {}
       },
       loading: 0
     }
   },
   methods: {
-    editEvent() {
-      const event = this.event;
-      this.$router.push({ name: 'editevent', params: { event } })
-    },
     deleteEvent() {
       const id = this.$route.params.id;
 
@@ -104,15 +95,10 @@ export default {
       this.$router.back();
     }
   },
-  apollo: {
-    event: {
-      query: EVENT_QUERY,
-      loadingKey: 'loading',
-      variables() {
-        return {
-          id: this.event.id
-        }
-      }
+  mounted() {
+    // TODO: Add error for when this page in navigated to directly.
+    this.event = {
+      ...this.$route.params.event
     }
   }
 }

@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import CalendarHome from './components/CalendarHome';
 import EventDetails from './components/EventDetails';
 import NewEvent from './components/NewEvent';
+import EditEvent from './components/EditEvent';
 
 Vue.use(Router);
 
@@ -21,6 +22,13 @@ export default new Router({
           path: '/details/:id',
           name: 'eventdetails',
           component: EventDetails,
+          children: [
+            {
+                path: '/edit/:id',
+                name: 'editevent',
+                component: EditEvent
+            }
+          ]
         },
         {
           path: '/new/',
