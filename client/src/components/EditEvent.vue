@@ -92,7 +92,7 @@ export default {
         this.$ons.notification.alert(error);
       });
 
-      this.$router.back();
+      this.$router.go(-2);
     }
   },
   mounted() {

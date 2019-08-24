@@ -73,7 +73,7 @@ export default {
         title: '',
         start: format(new Date(), 'YYYY-MM-DD'),
         end: format(new Date(), 'YYYY-MM-DD'),
-        cssClass: 'red',
+        cssClass: '',
         data: {
           description: ''
         }
