@@ -23,24 +23,8 @@
 
     <br>
 
-    <v-ons-list>
-      <v-ons-list-item>
-        <div class="center">
-          <label class="center" for="event_start">Starts</label>
-        </div>
-        <div class="right">
-          <v-ons-input input-id="event_start" type="text" v-model="event.start" placeholder="YYYY-MM-DD"></v-ons-input>
-        </div>
-      </v-ons-list-item>
-      <v-ons-list-item>
-        <div class="right">
-          <label class="center" for="event_end">Ends</label>
-        </div>
-        <div class="right">
-          <v-ons-input input-id="event_end" type="text" v-model="event.end" placeholder="YYYY-MM-DD"></v-ons-input>
-        </div>
-      </v-ons-list-item>
-    </v-ons-list>
+    <date-picker-dialog :label="'Starts'" @pickDate="updateStartDate" :selectedDate="event.start"></date-picker-dialog>
+    <date-picker-dialog :label="'Ends'" @pickDate="updateEndDate" :selectedDate="event.end"></date-picker-dialog>
 
     <br>
 
@@ -63,6 +47,7 @@ import isValid from 'date-fns/is_valid';
 import { CREATE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 import ColorPicker from './ColorPicker';
+import DatePickerDialog from './DatePickerDialog';
 
 export default {
   name: 'NewEvent',
@@ -133,10 +118,35 @@ export default {
     },
     setColor(v) {
       this.event.cssClass = v;
+    },
+    updateStartDate(d) {
+      this.event.start = d;
+
+      let start = format(this.event.start, 'YYYY-MM-DD');
+      let end   = format(this.event.end, 'YYYY-MM-DD');
+
+      if (!isValid(new Date(start)))
+        this.event.start = format(new Date(), 'YYYY-MM-DD');
+
+      if (!isValid(new Date(end)) || new Date(start) > new Date(end))
+        this.event.end = start;
+    },
+    updateEndDate(d) {
+      this.event.end = d;
+
+      let start = format(this.event.start, 'YYYY-MM-DD');
+      let end   = format(this.event.end, 'YYYY-MM-DD');
+
+      if (!isValid(new Date(end)))
+        this.event.end = format(new Date(), 'YYYY-MM-DD');
+
+      if (new Date(start) > new Date(end))
+        this.event.start = end;
     }
   },
   components: {
-    ColorPicker
+    ColorPicker,
+    DatePickerDialog
   }
 }
 </script>
