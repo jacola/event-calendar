@@ -1,4 +1,5 @@
 const express = require('express');
+const { GraphQLScalarType } = require('graphql');
 const { ApolloServer, gql } = require('apollo-server-express');
 
 require('./config');
@@ -6,12 +7,16 @@ const { Event } = require('./models');
 
 // The GraphQL schema
 const typeDefs = gql`
+  scalar Date
+
   type Event {
     id: ID!,
     title: String,
     start: String,
     end: String,
     cssClass: String,
+    created: Date,
+    modified: Date,
     data: EventData
   }
 
@@ -45,6 +50,22 @@ const typeDefs = gql`
 
 // A map of functions which return data for the schema.
 const resolvers = {
+  Date: new GraphQLScalarType({
+    name: 'Date',
+    description: 'Date custom scalar type',
+    parseValue(value) {
+      return new Date(value); // value from the client
+    },
+    serialize(value) {
+      return value.getTime(); // value sent to the client
+    },
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return new Date(ast.value) // ast value is always in string format
+      }
+      return null;
+    },
+  }),
   Query: {
     allEvents: async () => await Event.find({}).exec(),
     event: async (_, args) => Event.findById(args.id).exec()
@@ -52,6 +73,7 @@ const resolvers = {
   Mutation: {
     createEvent: async (_, { input }) => {
       try {
+        input.created = new Date();
         let response = await Event.create(input);
         return response;
       } catch(e) {

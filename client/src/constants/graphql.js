@@ -19,6 +19,8 @@ export const EVENT_QUERY = gql`
 query event ($id: ID!) {
   event(id: $id) {
     id,
+    created,
+    modified,
     title,
     start,
     end,

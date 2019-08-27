@@ -47,6 +47,11 @@
           {{ event.data.description }}
         </v-ons-list-item>
       </v-ons-list>
+
+      <p class="center list-item__subtitle">
+        Created: {{ event.created | scalarToDateTime }}<br>
+        Modified: {{ event.modified | scalarToDateTime }}
+      </p>
     </span>
 
     <v-ons-action-sheet :visible.sync="confirmDelete" cancelable>
@@ -61,6 +66,7 @@
 </template>
 
 <script>
+import format from 'date-fns/format';
 import { EVENT_QUERY, DELETE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 export default {
@@ -102,6 +108,12 @@ export default {
       });
 
       this.$router.back();
+    }
+  },
+  filters: {
+    scalarToDateTime: (value) => {
+      if (!value) return 'n/a';
+      return format(new Date(value), 'YYYY-MM-DD hh:mm:ss') ;
     }
   },
   apollo: {

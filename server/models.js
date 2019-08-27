@@ -6,6 +6,8 @@ const eventSchema = new Schema({
   start: String,
   end: String,
   cssClass: String,
+  created: Date,
+  modified: Date,
   data: {
     description: String
   }
