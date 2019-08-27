@@ -73,8 +73,11 @@ const resolvers = {
   Mutation: {
     createEvent: async (_, { input }) => {
       try {
-        input.created = new Date();
+        const dt = new Date();
+        input.created = dt;
+        input.modified = dt;
         let response = await Event.create(input);
+        console.log(`Created: ${response.id}`);
         return response;
       } catch(e) {
         e.message;
@@ -82,8 +85,10 @@ const resolvers = {
     },
     updateEvent: async (_, {id, input }) => {
       try {
-        let response = await Event.findOneAndUpdate({ id }, input, {new: true });
-        return response;
+        console.log(`Update: ${id}`);
+        input.modified =  new Date();
+        let response = await Event.updateOne({ _id: id }, input, {new: true });
+        return await Event.findOne({ _id: id });
       } catch(e) {
         e.message;
       }

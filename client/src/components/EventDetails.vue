@@ -50,7 +50,7 @@
 
       <p class="center list-item__subtitle">
         Created: {{ event.created | scalarToDateTime }}<br>
-        Modified: {{ event.modified | scalarToDateTime }}
+        <span v-if="event.modified != event.created">Modified: {{ event.modified | scalarToDateTime }}</span>
       </p>
     </span>
 
@@ -88,7 +88,7 @@ export default {
   methods: {
     editEvent() {
       const event = this.event;
-      this.$router.push({ name: 'editevent', params: { event } })
+      this.$router.push({ name: 'editevent', params: { event } });
     },
     deleteEvent() {
       const id = this.$route.params.id;
