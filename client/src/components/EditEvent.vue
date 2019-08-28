@@ -59,7 +59,7 @@
 import format from 'date-fns/format';
 import isValid from 'date-fns/is_valid';
 
-import { UPDATE_EVENT_MUTATION, EVENT_QUERY, DELETE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
+import { UPDATE_EVENT_MUTATION, DELETE_EVENT_MUTATION, ALL_EVENTS_QUERY } from '../constants/graphql';
 
 import ColorPicker from './ColorPicker';
 import DatePickerDialog from './DatePickerDialog';
