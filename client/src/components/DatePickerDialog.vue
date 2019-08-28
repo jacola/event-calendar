@@ -1,12 +1,12 @@
 <template>
   <span>
-    <v-ons-dialog class="date-picker" :visible.sync="showDatePicker">
+    <v-ons-dialog class="date-picker" :visible.sync="showDatePicker" cancelable>
       <v-ons-page>
         <v-ons-toolbar>
-          <div class="center" :value="selectedDate">Select Date</div>
+          <div class="center">Select Date</div>
         </v-ons-toolbar>
         <div class="center">
-          <datepicker :inline="true" @selected="pickDate"></datepicker>
+          <datepicker :inline="true" :value="selectedDate" @selected="pickDate"></datepicker>
         </div>
       </v-ons-page>
     </v-ons-dialog>
@@ -35,6 +35,9 @@ export default {
     }
   },
   methods: {
+    /*formatter(d) {
+      return format(d.toString(), 'YYYY-MM-DD');
+    },*/
     pickDate(d) {
       this.showDatePicker = false;
       this.$emit('pickDate', format(d.toString(), 'YYYY-MM-DD'));

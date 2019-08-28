@@ -56,8 +56,8 @@ export default {
       showColorPicker: false,
       event: {
         title: '',
-        start: format(new Date(), 'YYYY-MM-DD'),
-        end: format(new Date(), 'YYYY-MM-DD'),
+        start: format(new Date().toString(), 'YYYY-MM-DD'),
+        end: format(new Date().toString(), 'YYYY-MM-DD'),
         cssClass: '',
         data: {
           description: ''
