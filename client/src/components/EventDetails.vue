@@ -42,6 +42,22 @@
       <br>
 
       <v-ons-list>
+        <v-ons-list-item>
+          <label class="left">Calendar</label>
+          <div class="right">
+            <span v-if="event.cssClass==='red'"><v-ons-icon style="color: rgb(235, 77, 77)" icon="md-circle" size="20px"></v-ons-icon></span>
+            <span v-else-if="event.cssClass==='blue'"><v-ons-icon style="color: rgb(59, 59, 163)" icon="md-circle" size="20px"></v-ons-icon></span>
+            <span v-else-if="event.cssClass==='orange'"><v-ons-icon style="color: orange" icon="md-circle" size="20px"></v-ons-icon></span>
+            <span v-else-if="event.cssClass==='green'"><v-ons-icon style="color: rgb(49, 155, 49)" icon="md-circle" size="20px"></v-ons-icon></span>
+            <span v-else><v-ons-icon icon="md-circle-o" style="color: rgb(200, 200, 200)" size="20px"></v-ons-icon></span>
+            &nbsp;{{ (!event.cssClass || event.cssClass === '' ) ? 'none' : event.cssClass | capitalize }}
+          </div>
+        </v-ons-list-item>
+      </v-ons-list>
+
+      <br>
+
+      <v-ons-list>
         <v-ons-list-header> Description </v-ons-list-header>
         <v-ons-list-item>
           {{ event.data.description }}
@@ -114,6 +130,11 @@ export default {
     scalarToDateTime: (value) => {
       if (!value) return 'n/a';
       return format(new Date(value), 'YYYY-MM-DD HH:mm:ss') ;
+    },
+    capitalize: (value) => {
+      if (!value) return '';
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
     }
   },
   apollo: {
