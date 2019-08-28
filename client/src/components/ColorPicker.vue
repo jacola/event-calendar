@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-ons-dialog class="color-picker" :visible.sync="showColorPicker">
+    <v-ons-dialog class="color-picker" :visible.sync="showColorPicker" cancelable>
       <v-ons-page>
         <v-ons-toolbar>
           <div class="center">Select Color</div>
