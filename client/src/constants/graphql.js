@@ -57,6 +57,32 @@ export const CREATE_EVENT_MUTATION = gql`
   }
 `;
 
+export const UPDATE_EVENT_MUTATION = gql`
+  mutation UpdateEvent($id: ID!, $title: String!,  $start: String!,  $end: String!,  $cssClass: String, $description: String) {
+    updateEvent(
+      id: $id,
+      input: {
+        title: $title,
+        start: $start,
+        end: $end,
+        cssClass: $cssClass,
+        data: {
+          description: $description
+        }
+     }
+   ) {
+      id
+      title
+      start
+      end
+      cssClass
+      data {
+        description
+      }
+    }
+  }
+`;
+
 export const DELETE_EVENT_MUTATION = gql`
   mutation DeleteEvent($id: ID!) {
     deleteEvent(id: $id) {

@@ -83,7 +83,7 @@ const resolvers = {
         e.message;
       }
     },
-    updateEvent: async (_, {id, input }) => {
+    updateEvent: async (_, { id, input }) => {
       try {
         console.log(`Update: ${id}`);
         input.modified =  new Date();

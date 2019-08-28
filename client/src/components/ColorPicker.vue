@@ -39,7 +39,7 @@
           <span v-else-if="color==='orange'"><v-ons-icon style="color: orange" icon="md-circle" size="20px"></v-ons-icon></span>
           <span v-else-if="color==='green'"><v-ons-icon style="color: rgb(49, 155, 49)" icon="md-circle" size="20px"></v-ons-icon></span>
           <span v-else><v-ons-icon icon="md-circle-o" style="color: rgb(200, 200, 200)" size="20px"></v-ons-icon></span>
-          &nbsp;{{ color === '' ? 'none' : color | capitalize }}
+          &nbsp;{{ (!color || color === '' ) ? 'none' : color | capitalize }}
         </div>
       </v-ons-list-item>
     </v-ons-list>

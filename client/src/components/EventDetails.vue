@@ -113,7 +113,7 @@ export default {
   filters: {
     scalarToDateTime: (value) => {
       if (!value) return 'n/a';
-      return format(new Date(value), 'YYYY-MM-DD hh:mm:ss') ;
+      return format(new Date(value), 'YYYY-MM-DD HH:mm:ss') ;
     }
   },
   apollo: {
