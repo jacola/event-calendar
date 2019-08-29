@@ -34,12 +34,7 @@
       <v-ons-list-item tappable @click="showColorPicker=true">
         <label class="left">Calendar</label>
         <div class="right">
-          <span v-if="color==='red'"><v-ons-icon style="color: rgb(235, 77, 77)" icon="md-circle" size="20px"></v-ons-icon></span>
-          <span v-else-if="color==='blue'"><v-ons-icon style="color: rgb(59, 59, 163)" icon="md-circle" size="20px"></v-ons-icon></span>
-          <span v-else-if="color==='orange'"><v-ons-icon style="color: orange" icon="md-circle" size="20px"></v-ons-icon></span>
-          <span v-else-if="color==='green'"><v-ons-icon style="color: rgb(49, 155, 49)" icon="md-circle" size="20px"></v-ons-icon></span>
-          <span v-else><v-ons-icon icon="md-circle-o" style="color: rgb(200, 200, 200)" size="20px"></v-ons-icon></span>
-          &nbsp;{{ (!color || color === '' ) ? 'none' : color | capitalize }}
+          <color-label :color="color"></color-label>
         </div>
       </v-ons-list-item>
     </v-ons-list>
@@ -47,6 +42,8 @@
 </template>
 
 <script>
+import ColorLabel from './ColorLabel';
+
 export default {
   name: 'ColorPicker',
   props: ['color'],
@@ -61,12 +58,8 @@ export default {
       this.$emit('setColor', selection);
     }
   },
-  filters: {
-    capitalize: (value) => {
-      if (!value) return '';
-      value = value.toString();
-      return value.charAt(0).toUpperCase() + value.slice(1);
-    }
+  components: {
+    ColorLabel
   }
 }
 </script>
