@@ -12,7 +12,17 @@
     </span>
 
     <span v-else>
+      <v-ons-pull-hook
+        :action="reloadAllEvents"
+        @changestate="state = $event.state"
+        >
+        <span v-show="state === 'initial'"> Pull to refresh </span>
+        <span v-show="state === 'preaction'"> Release </span>
+        <span v-show="state === 'action'"> Loading... </span>
+      </v-ons-pull-hook>
+
       <br>
+
       <div class="links">
         <full-calendar :events="allEvents" @eventClick="eventSelect" />
       </div>
@@ -30,12 +40,14 @@ export default {
   data() {
     return {
       loading: 0,
-      allEvents: []
+      allEvents: [],
+      state: 'initial'
     }
   },
   methods: {
-    newEvent() {
-      this.$ons.notification.alert('New Event');
+    reloadAllEvents(done) {
+      this.$apollo.queries.allEvents.refetch();
+      done();
     },
     eventSelect(event) { //, jsEvent, pos) {
       this.$router.push({ name: 'eventdetails', params: { id: event.id } })
