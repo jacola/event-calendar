@@ -8,7 +8,8 @@ export { default as VOnsToolbarButton } from 'vue-onsenui/esm/components/VOnsToo
 export { default as VOnsBackButton } from 'vue-onsenui/esm/components/VOnsBackButton';
 export { default as VOnsButton } from 'vue-onsenui/esm/components/VOnsButton';
 
-export { default as VOnsPullHook } from 'vue-onsenui/esm/components/VOnsPullHook';
+//export { default as VOnsPullHook } from 'vue-onsenui/esm/components/VOnsPullHook';
+export { default as VOnsToast } from 'vue-onsenui/esm/components/VOnsToast';
 
 export { default as VOnsIcon } from 'vue-onsenui/esm/components/VOnsIcon';
 export { default as VOnsProgressBar } from 'vue-onsenui/esm/components/VOnsProgressBar';

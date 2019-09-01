@@ -3,6 +3,7 @@
     <v-ons-toolbar>
       <div class="center">Event Calendar</div>
       <div class="right">
+        <v-ons-toolbar-button @click="reloadAllEvents"><v-ons-icon icon="md-refresh" size="25px"></v-ons-icon></v-ons-toolbar-button>
         <v-ons-toolbar-button @click="$router.push({ name: 'newevent' })"><v-ons-icon icon="md-plus" size="25px"></v-ons-icon></v-ons-toolbar-button>
       </div>
     </v-ons-toolbar>
@@ -11,22 +12,11 @@
       <v-ons-progress-bar indeterminate></v-ons-progress-bar>
     </span>
 
-    <span v-else>
-      <v-ons-pull-hook
-        :action="reloadAllEvents"
-        @changestate="state = $event.state"
-        >
-        <span v-show="state === 'initial'"> Pull to refresh </span>
-        <span v-show="state === 'preaction'"> Release </span>
-        <span v-show="state === 'action'"> Loading... </span>
-      </v-ons-pull-hook>
+    <br>
 
-      <br>
-
-      <div class="links">
-        <full-calendar :events="allEvents" @eventClick="eventSelect" />
-      </div>
-    </span>
+    <div class="links">
+      <full-calendar :events="allEvents" @eventClick="eventSelect" />
+    </div>
   </v-ons-page>
 </template>
 
@@ -41,13 +31,13 @@ export default {
     return {
       loading: 0,
       allEvents: [],
-      state: 'initial'
     }
   },
   methods: {
-    reloadAllEvents(done) {
+    reloadAllEvents() {
+      console.log('...');
       this.$apollo.queries.allEvents.refetch();
-      done();
+      this.$ons.notification.toast('Events Reloaded', { timeout: 1000, animation: 'fall' });
     },
     eventSelect(event) { //, jsEvent, pos) {
       this.$router.push({ name: 'eventdetails', params: { id: event.id } })
