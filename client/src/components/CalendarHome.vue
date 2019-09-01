@@ -3,7 +3,12 @@
     <v-ons-toolbar>
       <div class="center">Event Calendar</div>
       <div class="right">
-        <v-ons-toolbar-button @click="reloadAllEvents"><v-ons-icon icon="md-refresh" size="25px"></v-ons-icon></v-ons-toolbar-button>
+        <span v-if="!loading">
+          <v-ons-toolbar-button @click="reloadAllEvents"><v-ons-icon icon="md-refresh" size="25px"></v-ons-icon></v-ons-toolbar-button>
+        </span>
+        <span v-else>
+          <v-ons-toolbar-button disabled><v-ons-icon icon="md-refresh" size="25px"></v-ons-icon></v-ons-toolbar-button>
+        </span>
         <v-ons-toolbar-button @click="$router.push({ name: 'newevent' })"><v-ons-icon icon="md-plus" size="25px"></v-ons-icon></v-ons-toolbar-button>
       </div>
     </v-ons-toolbar>
@@ -35,9 +40,12 @@ export default {
   },
   methods: {
     reloadAllEvents() {
-      console.log('...');
-      this.$apollo.queries.allEvents.refetch();
-      this.$ons.notification.toast('Events Reloaded', { timeout: 1000, animation: 'fall' });
+      this.$apollo.queries.allEvents.refetch().then(() => {
+        this.$ons.notification.toast(`Fetched ${this.allEvents.length} events`, {
+          timeout: 1000,
+          animation: 'fall'
+        });
+      });
     },
     eventSelect(event) { //, jsEvent, pos) {
       this.$router.push({ name: 'eventdetails', params: { id: event.id } })

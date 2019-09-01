@@ -17,7 +17,8 @@ const typeDefs = gql`
     cssClass: String,
     created: Date,
     modified: Date,
-    data: EventData
+    data: EventData,
+    totalCount: Int
   }
 
   input EventInput {
