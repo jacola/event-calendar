@@ -93,4 +93,6 @@ typings/
 */dist/*
 
 .env
+
+# PCS scripts
 *.sh
