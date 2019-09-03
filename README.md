@@ -2,7 +2,14 @@
 Vue JS event calendar with graphql backend using Onsen UI as a play project to experiment with all 3 working together. To keep it fun, this project is only worked on from my iPad.
 
 # Screenshots
+The calendar view:
 ![Calendar](https://jacques.io/public/static/calendar-app-1.jpeg)
+
+New/Edit Screen
+![Calendar](https://jacques.io/public/static/calendar-app-2.jpeg)
+
+Detail View:
+![Calendar](https://jacques.io/public/static/calendar-app-3.jpeg)
 
 # Settings
 .env
