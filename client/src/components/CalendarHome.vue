@@ -18,7 +18,7 @@
     </span>
 
     <v-ons-card>
-      <full-calendar :events="allEvents" @eventClick="eventSelect"/>
+      <full-calendar :firstDay="1" :events="allEvents" @eventClick="eventSelect"/>
     </v-ons-card>
   </v-ons-page>
 </template>
@@ -89,5 +89,9 @@ export default {
   }
   .event-item {
     padding: 2px 0 2px 4px !important;
+  }
+
+  .comp-full-calendar {
+    padding: 0px !important;
   }
 </style>
