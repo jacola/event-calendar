@@ -18,7 +18,7 @@
     </span>
 
     <v-ons-card>
-      <full-calendar :firstDay="1" :events="allEvents" @eventClick="eventSelect"/>
+      <full-calendar :events="allEvents" @eventClick="eventSelect"/>
     </v-ons-card>
   </v-ons-page>
 </template>
