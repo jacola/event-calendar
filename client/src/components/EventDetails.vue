@@ -32,17 +32,6 @@
 
       <v-ons-list>
         <v-ons-list-item>
-          <label class="left" for="start-input">Calendar</label>
-          <div class="right">
-            <v-ons-input disabled input-id="start-input" type="text" v-model="event.cssClass"></v-ons-input>
-          </div>
-        </v-ons-list-item>
-      </v-ons-list>
-
-      <br>
-
-      <v-ons-list>
-        <v-ons-list-item>
           <label class="left">Calendar</label>
           <div class="right">
             <color-label :color="event.cssClass"></color-label>
