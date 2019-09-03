@@ -70,7 +70,9 @@ export default {
     return {
       confirmDelete: false,
       event: {
-        data: {}
+        data: {
+          description: ''
+        }
       },
       loading: 0
     }
@@ -162,6 +164,11 @@ export default {
     // TODO: Add error for when this page in navigated to directly.
     this.event = {
       ...this.$route.params.event
+    }
+
+    if (!this.event.id) {
+      this.$ons.notification.toast('Cannot refresh edit screen.', { timeout: 1000, animation: 'fall' });
+      this.$router.push({ name: 'eventdetails', params: { id: this.$route.params.id } })
     }
   },
   components: {

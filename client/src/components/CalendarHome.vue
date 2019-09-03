@@ -17,11 +17,9 @@
       <v-ons-progress-bar indeterminate></v-ons-progress-bar>
     </span>
 
-    <br>
-
-    <div class="links">
-      <full-calendar :events="allEvents" @eventClick="eventSelect" />
-    </div>
+    <v-ons-card>
+      <full-calendar :events="allEvents" @eventClick="eventSelect"/>
+    </v-ons-card>
   </v-ons-page>
 </template>
 
@@ -41,7 +39,7 @@ export default {
   methods: {
     reloadAllEvents() {
       this.$apollo.queries.allEvents.refetch().then(() => {
-        this.$ons.notification.toast(`Fetched ${this.allEvents.length} events`, {
+        this.$ons.notification.toast(`Refreshing events...`, {
           timeout: 1000,
           animation: 'fall'
         });
