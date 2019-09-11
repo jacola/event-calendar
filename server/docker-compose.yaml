@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  nodejs:
+  event-cal-api:
     build:
       context: .
       dockerfile: Dockerfile
-    image: nodejs
+    image: jacquesl/event-cal-api
     container_name: nodejs
-    restart: unless-stopped
+    restart: always
     env_file: .env
     environment:
       - MONGO_USERNAME=$MONGO_USERNAME
@@ -42,5 +42,4 @@ networks:
     driver: bridge
 
 volumes:
-  node_modules:
   mongodb:

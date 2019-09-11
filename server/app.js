@@ -110,7 +110,7 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers, playground: true });
 
 const app = express();
-server.applyMiddleware({ app });
+server.applyMiddleware({ app, path: '/' });
 
 app.listen({ port }, () =>
   console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
