@@ -7,8 +7,12 @@ const url = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWOR
 console.log(url);
 const context = () => MongoClient.connect(url, { useNewUrlParser: true })
 
-mongoose.connect(url, { useNewUrlParser: true });
-mongoose.connection.once('open', () => {
-	console.log(`Connected to mongo at ${url}`)
-});
 
+mongoConnect().then(() => console.log(`Connected to mongo at ${url}`)).catch(error => console.error(error.stack));
+
+async function mongoConnect() {
+  //console.log(mongoose.version);
+  await mongoose.connect(url, { useNewUrlParser: true }).
+    catch(error => { console.log(`Caught "${error.message}"`);
+    process.exit(1)});
+}
